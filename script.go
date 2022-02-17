@@ -3,6 +3,7 @@ package tengo
 import (
 	"context"
 	"fmt"
+	"os"
 	"path/filepath"
 	"sync"
 
@@ -97,13 +98,22 @@ func (s *Script) Compile() (*Compiled, error) {
 
 	fileSet := parser.NewFileSet()
 	srcFile := fileSet.AddFile("(main)", -1, len(s.input))
-	p := parser.NewParser(srcFile, s.input, nil)
+
+	pTrace, err := os.Create("debug/ast.tengo")
+	if err != nil {
+		panic(err)
+	}
+	p := parser.NewParser(srcFile, s.input, pTrace)
 	file, err := p.ParseFile()
 	if err != nil {
 		return nil, err
 	}
 
-	c := NewCompiler(srcFile, symbolTable, nil, s.modules, nil)
+	cTrace, err := os.Create("debug/bytecode.tengo")
+	if err != nil {
+		panic(err)
+	}
+	c := NewCompiler(srcFile, symbolTable, nil, s.modules, cTrace)
 	c.EnableFileImport(s.enableFileImport)
 	c.SetImportDir(s.importDir)
 	if err := c.Compile(file); err != nil {

@@ -1197,5 +1197,4 @@ func tracep(p *Parser, msg string) *Parser {
 
 func untracep(p *Parser) {
 	p.indent--
-	p.printTrace(")")
 }

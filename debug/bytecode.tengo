@@ -1,0 +1,139 @@
+fmt := import("fmt")"; each := func(seq, fn) {for _, x in seq {fn(x)}}; sum := 0; mul := 1; each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (File) {
+. fmt := import("fmt")" (AssignStmt) {
+. . import("fmt")" (ImportExpr) {
+. . . CONST 0000 {println: <user-function>, sprintf: <user-function>, __module_name__: "fmt", print: <user-function>, printf: <user-function>}
+. . . EMIT  0000 CONST   0    
+. . }
+. . EMIT  0003 SETG    4    
+. }
+. each := func(seq, fn) {for _, x in seq {fn(x)}} (AssignStmt) {
+. . func(seq, fn) {for _, x in seq {fn(x)}} (FuncLit) {
+. . . SCOPE 1
+. . . {for _, x in seq {fn(x)}} (BlockStmt) {
+. . . . for _, x in seq {fn(x)} (ForInStmt) {
+. . . . . seq (Ident) {
+. . . . . . EMIT  0000 GETL    0    
+. . . . . }
+. . . . . EMIT  0002 ITER   
+. . . . . EMIT  0003 DEFL    2    
+. . . . . EMIT  0005 GETL    2    
+. . . . . EMIT  0007 ITNXT  
+. . . . . EMIT  0008 JMPF    0    
+. . . . . LOOPE 0
+. . . . . EMIT  0011 GETL    2    
+. . . . . EMIT  0013 ITVAL  
+. . . . . EMIT  0014 DEFL    3    
+. . . . . {fn(x)} (BlockStmt) {
+. . . . . . fn(x) (ExprStmt) {
+. . . . . . . fn(x) (CallExpr) {
+. . . . . . . . fn (Ident) {
+. . . . . . . . . EMIT  0016 GETL    1    
+. . . . . . . . }
+. . . . . . . . x (Ident) {
+. . . . . . . . . EMIT  0018 GETL    3    
+. . . . . . . . }
+. . . . . . . . EMIT  0020 CALL    1     0    
+. . . . . . . }
+. . . . . . . EMIT  0023 POP    
+. . . . . . }
+. . . . . }
+. . . . . LOOPL 0
+. . . . . EMIT  0024 JMP     5    
+. . . . . REPLC 0008 JMPF    27   
+. . . . }
+. . . }
+. . . EMIT  0027 RET     0    
+. . . SCOPL 0
+. . . CONST 0001 <compiled-function>
+. . . EMIT  0006 CONST   1    
+. . }
+. . EMIT  0009 SETG    5    
+. }
+. sum := 0 (AssignStmt) {
+. . 0 (IntLit) {
+. . . CONST 0002 0
+. . . EMIT  0012 CONST   2    
+. . }
+. . EMIT  0015 SETG    6    
+. }
+. mul := 1 (AssignStmt) {
+. . 1 (IntLit) {
+. . . CONST 0003 1
+. . . EMIT  0018 CONST   3    
+. . }
+. . EMIT  0021 SETG    7    
+. }
+. each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (ExprStmt) {
+. . each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (CallExpr) {
+. . . each (Ident) {
+. . . . EMIT  0024 GETG    5    
+. . . }
+. . . [a, b, c, d] (ArrayLit) {
+. . . . a (Ident) {
+. . . . . EMIT  0027 GETG    0    
+. . . . }
+. . . . b (Ident) {
+. . . . . EMIT  0030 GETG    1    
+. . . . }
+. . . . c (Ident) {
+. . . . . EMIT  0033 GETG    2    
+. . . . }
+. . . . d (Ident) {
+. . . . . EMIT  0036 GETG    3    
+. . . . }
+. . . . EMIT  0039 ARR     4    
+. . . }
+. . . func(x) {fmt.println("aa"); sum += x; mul *= x} (FuncLit) {
+. . . . SCOPE 1
+. . . . {fmt.println("aa"); sum += x; mul *= x} (BlockStmt) {
+. . . . . fmt.println("aa") (ExprStmt) {
+. . . . . . fmt.println("aa") (CallExpr) {
+. . . . . . . fmt.println (SelectorExpr) {
+. . . . . . . . fmt (Ident) {
+. . . . . . . . . EMIT  0000 GETG    4    
+. . . . . . . . }
+. . . . . . . . println (StringLit) {
+. . . . . . . . . CONST 0004 "println"
+. . . . . . . . . EMIT  0003 CONST   4    
+. . . . . . . . }
+. . . . . . . . EMIT  0006 INDEX  
+. . . . . . . }
+. . . . . . . "aa" (StringLit) {
+. . . . . . . . CONST 0005 "aa"
+. . . . . . . . EMIT  0007 CONST   5    
+. . . . . . . }
+. . . . . . . EMIT  0010 CALL    1     0    
+. . . . . . }
+. . . . . . EMIT  0013 POP    
+. . . . . }
+. . . . . sum += x (AssignStmt) {
+. . . . . . sum (Ident) {
+. . . . . . . EMIT  0014 GETG    6    
+. . . . . . }
+. . . . . . x (Ident) {
+. . . . . . . EMIT  0017 GETL    0    
+. . . . . . }
+. . . . . . EMIT  0019 BINARYOP 11   
+. . . . . . EMIT  0021 SETG    6    
+. . . . . }
+. . . . . mul *= x (AssignStmt) {
+. . . . . . mul (Ident) {
+. . . . . . . EMIT  0024 GETG    7    
+. . . . . . }
+. . . . . . x (Ident) {
+. . . . . . . EMIT  0027 GETL    0    
+. . . . . . }
+. . . . . . EMIT  0029 BINARYOP 13   
+. . . . . . EMIT  0031 SETG    7    
+. . . . . }
+. . . . }
+. . . . EMIT  0034 RET     0    
+. . . . SCOPL 0
+. . . . CONST 0006 <compiled-function>
+. . . . EMIT  0042 CONST   6    
+. . . }
+. . . EMIT  0045 CALL    2     0    
+. . }
+. . EMIT  0048 POP    
+. }
+}
