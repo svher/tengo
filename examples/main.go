@@ -11,8 +11,21 @@ func main() {
 	// create a new Script instance
 	script := tengo.NewScript([]byte(
 		`fmt := import("fmt")
+
+func() {
+foo := func(x) {
+if (x <= 0) {
+return
+}
+foo(x-1)
+}
+}
+
 each := func(seq, fn) {
     for x in seq { fn(x) }
+}
+
+export func() {
 }
 
 sum := 0
