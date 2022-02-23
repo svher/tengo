@@ -1,0 +1,26 @@
+fmt := import("fmt")
+
+func() {
+    foo := func(x) {
+        if (x <= 0) {
+            foo(x-2)
+        } else {
+            return foo(x-1)
+        }
+    }
+}
+
+each := func(seq, fn) {
+    for x in seq { fn(x) }
+}
+
+export func() {
+}
+
+sum := 0
+mul := 1
+each([a, b, c, d], func(x) {
+	fmt.println("aa")
+    sum += x
+    mul *= x
+})

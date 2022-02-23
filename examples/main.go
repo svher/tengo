@@ -5,36 +5,17 @@ import (
 	"fmt"
 	"github.com/d5/tengo/v2"
 	"github.com/d5/tengo/v2/stdlib"
+	"io/ioutil"
 )
 
 func main() {
 	// create a new Script instance
-	script := tengo.NewScript([]byte(
-		`fmt := import("fmt")
+	src, err := ioutil.ReadFile("examples/testcases/escape.tengo")
+	if err != nil {
+		panic(err)
+	}
 
-func() {
-foo := func(x) {
-if (x <= 0) {
-return
-}
-foo(x-1)
-}
-}
-
-each := func(seq, fn) {
-    for x in seq { fn(x) }
-}
-
-export func() {
-}
-
-sum := 0
-mul := 1
-each([a, b, c, d], func(x) {
-	fmt.println("aa")
-    sum += x
-    mul *= x
-})`))
+	script := tengo.NewScript(src)
 
 	// set values
 	_ = script.Add("a", 1)

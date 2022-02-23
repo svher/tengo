@@ -1,10 +1,97 @@
-fmt := import("fmt")"; each := func(seq, fn) {for _, x in seq {fn(x)}}; sum := 0; mul := 1; each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (File) {
+fmt := import("fmt")"; func() {foo := func(x) {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}}}; each := func(seq, fn) {for _, x in seq {fn(x)}}; export func() {}; sum := 0; mul := 1; each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (File) {
 . fmt := import("fmt")" (AssignStmt) {
 . . import("fmt")" (ImportExpr) {
-. . . CONST 0000 {println: <user-function>, sprintf: <user-function>, __module_name__: "fmt", print: <user-function>, printf: <user-function>}
+. . . CONST 0000 {print: <user-function>, printf: <user-function>, println: <user-function>, sprintf: <user-function>, __module_name__: "fmt"}
 . . . EMIT  0000 CONST   0    
 . . }
 . . EMIT  0003 SETG    4    
+. }
+. func() {foo := func(x) {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}}} (ExprStmt) {
+. . func() {foo := func(x) {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}}} (FuncLit) {
+. . . SCOPE 1
+. . . {foo := func(x) {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}}} (BlockStmt) {
+. . . . foo := func(x) {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}} (AssignStmt) {
+. . . . . func(x) {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}} (FuncLit) {
+. . . . . . SCOPE 2
+. . . . . . {if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))}} (BlockStmt) {
+. . . . . . . if ((x <= 0)) {foo((x - 2))} else {return foo((x - 1))} (IfStmt) {
+. . . . . . . . ((x <= 0)) (ParenExpr) {
+. . . . . . . . . (x <= 0) (BinaryExpr) {
+. . . . . . . . . . 0 (IntLit) {
+. . . . . . . . . . . CONST 0001 0
+. . . . . . . . . . . EMIT  0000 CONST   1    
+. . . . . . . . . . }
+. . . . . . . . . . x (Ident) {
+. . . . . . . . . . . EMIT  0003 GETL    0    
+. . . . . . . . . . }
+. . . . . . . . . . EMIT  0005 BINARYOP 44   
+. . . . . . . . . }
+. . . . . . . . }
+. . . . . . . . EMIT  0007 JMPF    0    
+. . . . . . . . {foo((x - 2))} (BlockStmt) {
+. . . . . . . . . foo((x - 2)) (ExprStmt) {
+. . . . . . . . . . foo((x - 2)) (CallExpr) {
+. . . . . . . . . . . foo (Ident) {
+. . . . . . . . . . . . EMIT  0010 GETF    0    
+. . . . . . . . . . . }
+. . . . . . . . . . . (x - 2) (BinaryExpr) {
+. . . . . . . . . . . . x (Ident) {
+. . . . . . . . . . . . . EMIT  0012 GETL    0    
+. . . . . . . . . . . . }
+. . . . . . . . . . . . 2 (IntLit) {
+. . . . . . . . . . . . . CONST 0002 2
+. . . . . . . . . . . . . EMIT  0014 CONST   2    
+. . . . . . . . . . . . }
+. . . . . . . . . . . . EMIT  0017 BINARYOP 12   
+. . . . . . . . . . . }
+. . . . . . . . . . . EMIT  0019 CALL    1     0    
+. . . . . . . . . . }
+. . . . . . . . . . EMIT  0022 POP    
+. . . . . . . . . }
+. . . . . . . . }
+. . . . . . . . EMIT  0023 JMP     0    
+. . . . . . . . REPLC 0007 JMPF    26   
+. . . . . . . . {return foo((x - 1))} (BlockStmt) {
+. . . . . . . . . return foo((x - 1)) (ReturnStmt) {
+. . . . . . . . . . foo((x - 1)) (CallExpr) {
+. . . . . . . . . . . foo (Ident) {
+. . . . . . . . . . . . EMIT  0026 GETF    0    
+. . . . . . . . . . . }
+. . . . . . . . . . . (x - 1) (BinaryExpr) {
+. . . . . . . . . . . . x (Ident) {
+. . . . . . . . . . . . . EMIT  0028 GETL    0    
+. . . . . . . . . . . . }
+. . . . . . . . . . . . 1 (IntLit) {
+. . . . . . . . . . . . . CONST 0003 1
+. . . . . . . . . . . . . EMIT  0030 CONST   3    
+. . . . . . . . . . . . }
+. . . . . . . . . . . . EMIT  0033 BINARYOP 12   
+. . . . . . . . . . . }
+. . . . . . . . . . . EMIT  0035 CALL    1     0    
+. . . . . . . . . . }
+. . . . . . . . . . EMIT  0038 RET     1    
+. . . . . . . . . }
+. . . . . . . . }
+. . . . . . . . REPLC 0023 JMP     40   
+. . . . . . . }
+. . . . . . }
+. . . . . . EMIT  0040 RET     0    
+. . . . . . SCOPL 1
+. . . . . . EMIT  0000 NULL   
+. . . . . . EMIT  0001 DEFL    0    
+. . . . . . EMIT  0003 GETLP   0    
+. . . . . . CONST 0004 <compiled-function>
+. . . . . . EMIT  0005 CLOSURE 4     1    
+. . . . . }
+. . . . . EMIT  0009 SETL    0    
+. . . . }
+. . . }
+. . . EMIT  0011 RET     0    
+. . . SCOPL 0
+. . . CONST 0005 <compiled-function>
+. . . EMIT  0006 CONST   5    
+. . }
+. . EMIT  0009 POP    
 . }
 . each := func(seq, fn) {for _, x in seq {fn(x)}} (AssignStmt) {
 . . func(seq, fn) {for _, x in seq {fn(x)}} (FuncLit) {
@@ -44,44 +131,46 @@ fmt := import("fmt")"; each := func(seq, fn) {for _, x in seq {fn(x)}}; sum := 0
 . . . }
 . . . EMIT  0027 RET     0    
 . . . SCOPL 0
-. . . CONST 0001 <compiled-function>
-. . . EMIT  0006 CONST   1    
+. . . CONST 0006 <compiled-function>
+. . . EMIT  0010 CONST   6    
 . . }
-. . EMIT  0009 SETG    5    
+. . EMIT  0013 SETG    5    
+. }
+. export func() {} (ExportStmt) {
 . }
 . sum := 0 (AssignStmt) {
 . . 0 (IntLit) {
-. . . CONST 0002 0
-. . . EMIT  0012 CONST   2    
+. . . CONST 0007 0
+. . . EMIT  0016 CONST   7    
 . . }
-. . EMIT  0015 SETG    6    
+. . EMIT  0019 SETG    6    
 . }
 . mul := 1 (AssignStmt) {
 . . 1 (IntLit) {
-. . . CONST 0003 1
-. . . EMIT  0018 CONST   3    
+. . . CONST 0008 1
+. . . EMIT  0022 CONST   8    
 . . }
-. . EMIT  0021 SETG    7    
+. . EMIT  0025 SETG    7    
 . }
 . each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (ExprStmt) {
 . . each([a, b, c, d], func(x) {fmt.println("aa"); sum += x; mul *= x}) (CallExpr) {
 . . . each (Ident) {
-. . . . EMIT  0024 GETG    5    
+. . . . EMIT  0028 GETG    5    
 . . . }
 . . . [a, b, c, d] (ArrayLit) {
 . . . . a (Ident) {
-. . . . . EMIT  0027 GETG    0    
+. . . . . EMIT  0031 GETG    2    
 . . . . }
 . . . . b (Ident) {
-. . . . . EMIT  0030 GETG    1    
+. . . . . EMIT  0034 GETG    3    
 . . . . }
 . . . . c (Ident) {
-. . . . . EMIT  0033 GETG    2    
+. . . . . EMIT  0037 GETG    0    
 . . . . }
 . . . . d (Ident) {
-. . . . . EMIT  0036 GETG    3    
+. . . . . EMIT  0040 GETG    1    
 . . . . }
-. . . . EMIT  0039 ARR     4    
+. . . . EMIT  0043 ARR     4    
 . . . }
 . . . func(x) {fmt.println("aa"); sum += x; mul *= x} (FuncLit) {
 . . . . SCOPE 1
@@ -93,14 +182,14 @@ fmt := import("fmt")"; each := func(seq, fn) {for _, x in seq {fn(x)}}; sum := 0
 . . . . . . . . . EMIT  0000 GETG    4    
 . . . . . . . . }
 . . . . . . . . println (StringLit) {
-. . . . . . . . . CONST 0004 "println"
-. . . . . . . . . EMIT  0003 CONST   4    
+. . . . . . . . . CONST 0009 "println"
+. . . . . . . . . EMIT  0003 CONST   9    
 . . . . . . . . }
 . . . . . . . . EMIT  0006 INDEX  
 . . . . . . . }
 . . . . . . . "aa" (StringLit) {
-. . . . . . . . CONST 0005 "aa"
-. . . . . . . . EMIT  0007 CONST   5    
+. . . . . . . . CONST 0010 "aa"
+. . . . . . . . EMIT  0007 CONST   10   
 . . . . . . . }
 . . . . . . . EMIT  0010 CALL    1     0    
 . . . . . . }
@@ -129,11 +218,11 @@ fmt := import("fmt")"; each := func(seq, fn) {for _, x in seq {fn(x)}}; sum := 0
 . . . . }
 . . . . EMIT  0034 RET     0    
 . . . . SCOPL 0
-. . . . CONST 0006 <compiled-function>
-. . . . EMIT  0042 CONST   6    
+. . . . CONST 0011 <compiled-function>
+. . . . EMIT  0046 CONST   11   
 . . . }
-. . . EMIT  0045 CALL    2     0    
+. . . EMIT  0049 CALL    2     0    
 . . }
-. . EMIT  0048 POP    
+. . EMIT  0052 POP    
 . }
 }
